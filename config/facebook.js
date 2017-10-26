@@ -4,7 +4,7 @@ let express = require('express'),
 // Facebook Webhook
 // Used for verification
 router.get('', function (req, res) {
-  if (req.query[ 'hub.verify_token' ] === 'this_is_my_token') {
+  if (req.query[ 'hub.verify_token' ] === process.env.VERIFICATION_TOKEN) {
     console.log('Verified webhook');
     res.status(200).send(req.query[ 'hub.challenge' ]);
   } else {
