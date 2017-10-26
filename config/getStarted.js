@@ -10,7 +10,7 @@ const setupGetStartedButton = (response) => {
   };
   
   request({
-      url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token=' + process.env.PAGE_ACCESS_TOKEN,
+      url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAABZBj3O1ta4BADj6VqK7DxG4ZBzZCU9pmRlronJzCT2OOFrHGoUh4Sbx4JecZAmb4wSG4ZA90qeVQjWckWLO43zTZCLBXHdjF1ogd99MpBj4PfR97DkHzsdIAHBu75RrXwe75Ur9WZCKyIIeVKPo7Slej1Y3ksNZBFlYAzgEWWMlQZDZD',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       form: messageData,
