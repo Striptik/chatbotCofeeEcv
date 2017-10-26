@@ -2,7 +2,6 @@ let express = require('express'),
   router = express.Router(),
   utils = require('../utils/utils');
 
-let getStarted = require('./getStarted');
 
 // Facebook Webhook
 // Used for verification
@@ -18,6 +17,7 @@ router.get('',(req, res) => {
 
 router.post('', function (req, res) {
   if (req.body.object == "page") {
+    console.log(req.body)
     req.body.entry.forEach(function(entry) {
       entry.messaging.forEach(function(event) {
         if (event.postback) {
@@ -32,10 +32,6 @@ router.post('', function (req, res) {
     });
     res.sendStatus(200);
   }
-});
-
-router.get('/addGreeting', (req, res) => {
-  getStarted.setupGetStartedButton(res);
 });
 
 module.exports = router;
