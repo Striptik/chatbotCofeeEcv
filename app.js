@@ -10,7 +10,9 @@ app.listen(port, () => {
   console.log('Server is listening on port ' + port);
 });
 
-app.use('/', (req, res)=> {
+
+// HATEOS Route
+app.get('/', (req, res)=> {
   console.log('Deployment is workink find !');
   res.send({
     message: "DEPLOYEMENT OK !",
@@ -18,8 +20,19 @@ app.use('/', (req, res)=> {
   }).status(200);
 });
 
-let facebookRouter = require('./config/facebook');
+
+// Init Routers
+let initRouter = () => {
+  //TODO: DECLARE THE NEXT ROUTERS
+  let facebookRouter = require('./config/facebook');
+  
+  app.use('/webhook', facebookRouter);
+  //TODO: WRITE THE NEXT ROUTERS
+};
 
 
-// Server index page
-app.use('/webhook', facebookRouter);
+console.log("TOOOOKKKKEEENNN ----->>>>>>>\n",process.env.VERIFICATION_TOKEN)
+
+initRouter();
+
+
