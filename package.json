@@ -2,8 +2,9 @@
   "name": "georges-the-bot",
   "version": "0.0.5",
   "description": "Georges is a messenger bot for ECV Student. It purpose is to order a coffee from messenger",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
