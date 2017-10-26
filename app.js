@@ -30,9 +30,6 @@ let initRouter = () => {
   //TODO: WRITE THE NEXT ROUTERS
 };
 
-
-console.log("TOOOOKKKKEEENNN ----->>>>>>>\n",process.env.VERIFICATION_TOKEN)
-
 initRouter();
 
 
