@@ -1,3 +1,5 @@
+let request = require('request');
+
 function processPostback(event) {
   let senderId = event.sender.id;
   let payload = event.postback.payload;
