@@ -22,12 +22,14 @@ router.post('', function (req, res) {
     console.log(req.body.entry)
     count++;
     console.log('APPEL NB : ' + count);
-    req.body.entry[0].forEach(function(entry) {
-      console.log(entry)
-      entry.messaging.forEach(function(event) {
+    req.body.entry[0].messaging.forEach(function(event) {
+      console.log(event)
         if (event.postback) {
           console.log(event);
           utils.processPostback(event);
+        }
+        else if (event.message) {
+        console.log(event)
         }
         // if (event.message) {
         //   console.log(event)
