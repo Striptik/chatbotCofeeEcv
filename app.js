@@ -14,6 +14,7 @@ app.listen(port, () => {
 // HATEOS Route
 app.get('/', (req, res)=> {
   console.log('Deployment is workink find !');
+  // TODO: List all the routes
   res.send({
     message: "DEPLOYEMENT OK !",
     status: 200
