@@ -10,7 +10,7 @@ app.listen(port, () => {
   console.log('Server is listening on port ' + port);
 });
 
-let facebookRouter = require('config/facebook');
+let facebookRouter = require('./config/facebook');
 
 
 // Server index page
