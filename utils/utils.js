@@ -21,7 +21,8 @@ function processPostback(event) {
       } else {
         let bodyObj = JSON.parse(body);
         name = bodyObj.first_name;
-        greeting = "Hi " + name + ". ";
+        last_name = bodyObj.last_name;
+        greeting = "Hi " + name + " " + last_name + ". ";
       }
       let message = greeting + "My name is SP Movie Bot. I can tell you various details regarding movies. What movie would you like to know about?";
       sendMessage(senderId, {text: message});
