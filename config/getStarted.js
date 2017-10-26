@@ -15,7 +15,8 @@ const setupGetStartedButton = (response) => {
       headers: { 'Content-Type': 'application/json' },
       form: messageData,
     },
-    (error, response, body) => {
+    (error, res, body) => {
+    console.log('[GETSTARTED BODY]', body);
       if (!error && response.statusCode == 200) {
         response.send(body);
       } else {
