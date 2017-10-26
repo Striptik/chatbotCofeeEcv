@@ -17,11 +17,12 @@ router.get('',(req, res) => {
 });
 
 router.post('', function (req, res) {
+  console.log(req.body);
   if (req.body.object == "page") {
     console.log(req.body.entry)
     count++;
-    console.log(count);
-    req.body.entry.forEach(function(entry) {
+    console.log('APPEL NB : ' + count);
+    req.body.entry[0].forEach(function(entry) {
       console.log(entry)
       entry.messaging.forEach(function(event) {
         if (event.postback) {
