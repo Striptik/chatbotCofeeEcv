@@ -26,6 +26,7 @@ app.get('/', (req, res)=> {
 let initRouter = () => {
   //TODO: DECLARE THE NEXT ROUTERS
   let facebookRouter = require('./config/facebook');
+
   
   app.use('/webhook', facebookRouter);
   //TODO: WRITE THE NEXT ROUTERS

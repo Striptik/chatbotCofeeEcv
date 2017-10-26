@@ -23,7 +23,6 @@ const setupGetStartedButton = (response) => {
         response.send(body);
       }
     });
-  
 };
 
 
