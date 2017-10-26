@@ -1,6 +1,6 @@
 let express = require('express'),
   router = express.Router(),
-  utils = require('./utils/utils.js');
+  utils = require('../utils/utils');
 
 // Facebook Webhook
 // Used for verification
