@@ -17,8 +17,9 @@ router.get('',(req, res) => {
 
 router.post('', function (req, res) {
   if (req.body.object == "page") {
-    console.log(req.body)
+    console.log(req.body.entry)
     req.body.entry.forEach(function(entry) {
+      console.log(entry)
       entry.messaging.forEach(function(event) {
         if (event.postback) {
           console.log(event);
