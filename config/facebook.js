@@ -2,11 +2,9 @@ let express = require('express'),
   router = express.Router(),
   utils = require('../utils/utils');
 
-let getStarted = require('./getStarted');
-
 // Facebook Webhook
 // Used for verification
-router.get('',(req, res) => {
+router.get('', (req, res) => {
   if (req.query[ 'hub.verify_token' ] === process.env.VERIFICATION_TOKEN) {
     console.log('Verified webhook');
     res.status(200).send(req.query[ 'hub.challenge' ]);
@@ -35,9 +33,4 @@ router.post('', function (req, res) {
     res.sendStatus(200);
   }
 });
-
-router.get('/addGreeting', (req, res) => {
-  getStarted.setupGetStartedButton(res);
-});
-
 module.exports = router;
