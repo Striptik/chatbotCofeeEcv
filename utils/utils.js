@@ -1,6 +1,5 @@
-
-let messagesManager = require('../messages/manager')
-
+let messagesManager = require('../messages/manager'),
+  request = require('request');
 
 const processPostback = (event) => {
   let senderId = event.sender.id;
