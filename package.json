@@ -1,0 +1,32 @@
+{
+  "name": "georges-the-bot",
+  "version": "0.0.5",
+  "description": "Georges is a messenger bot for ECV Student. It purpose is to order a coffee from messenger",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Striptik/chatbotCofeeEcv.git"
+  },
+  "keywords": [
+    "chatbot",
+    "messenger",
+    "ecv",
+    "coffee",
+    "bot"
+  ],
+  "author": "Alexandre Simonin & Kevin Loiseleur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Striptik/chatbotCofeeEcv/issues"
+  },
+  "homepage": "https://github.com/Striptik/chatbotCofeeEcv#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^4.12.4",
+    "request": "^2.83.0"
+  }
+}
