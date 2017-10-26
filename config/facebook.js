@@ -36,7 +36,6 @@ router.post('', function (req, res) {
         //   utils.processMessage(event)
         // }
       });
-    });
     res.sendStatus(200);
   }
 });
