@@ -10,6 +10,14 @@ app.listen(port, () => {
   console.log('Server is listening on port ' + port);
 });
 
+app.use('/', (req, res)=> {
+  console.log('Deployment is workink find !');
+  res.send({
+    message: "DEPLOYEMENT OK !",
+    status: 200
+  }).status(200);
+});
+
 let facebookRouter = require('./config/facebook');
 
 
