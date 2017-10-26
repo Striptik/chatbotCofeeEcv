@@ -14,18 +14,31 @@ router.get('', (req, res) => {
   }
 });
 
+
+// Router where all facebook messages interactios are posted
 router.post('', function (req, res) {
+  // Handle page event, allways the case for this app
   if (req.body.object === "page") {
+  
+   // Iterating in all the entry, can have multiple entry
     req.body.entry.forEach(function(entry) {
+  
+      // Is there a message or an empty
       if (entry.messaging) {
+  
+        // For each message in entry
         entry.messaging.forEach(function(event) {
+  
+          // BUTTON, LIST, POSTBACK MESSAGE
           if (event.postback) {
-            console.log(event);
+            console.log(event);//XXX: REMOVE
             utils.processPostback(event);
           }
+  
+          // REAL MESSAGE FROM USER
           if (event.message) {
-            console.log(event);
-            //utils.processMessage(event);
+            console.log(event);//XXX: REMOVE
+            utils.processMessage(event);
           }
         });
       }

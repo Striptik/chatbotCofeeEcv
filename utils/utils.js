@@ -1,7 +1,13 @@
-function processPostback(event) {
+
+let messagesManager = require('../messages/manager')
+
+
+const processPostback = (event) => {
   let senderId = event.sender.id;
   let payload = event.postback.payload;
 
+  
+  // TODO: Rendre générique
   if (payload === "GET_STARTED_PAYLOAD") {
     // Get user's first name from the User Profile API
     // and include it in the greeting
@@ -22,30 +28,22 @@ function processPostback(event) {
         greeting = "Hi " + name + ". ";
       }
       let message = greeting + "My name is SP Movie Bot. I can tell you various details regarding movies. What movie would you like to know about?";
-      sendMessage(senderId, {text: message});
+      messagesManager.sendMessage(senderId, {text: message});
     });
   }
- 
-}
+};
 
-// sends message to user
-function sendMessage(recipientId, message) {
-  request({
-    url: "https://graph.facebook.com/v2.6/me/messages",
-    qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-    method: "POST",
-    json: {
-      recipient: {id: recipientId},
-      message: message,
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log("Error sending message: " + response.error);
-    }
-  });
-}
+const processMessage = (event) => {
+  // prevent for echoes messages
+  if (!event.message.is_echo) {
+    let senderId = event.sender.id;
+    let payload = event.postback.payload;
+  }
+  //TODO : HANDLE PARSING USERS SENTENCES
+  
+};
 
 module.exports = {
   processPostback,
-  sendMessage
+  processMessage,
 };
