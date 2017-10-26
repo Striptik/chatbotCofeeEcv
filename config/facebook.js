@@ -3,10 +3,9 @@ let express = require('express'),
   utils = require('../utils/utils');
 let count = 0;
 
-
 // Facebook Webhook
 // Used for verification
-router.get('',(req, res) => {
+router.get('', (req, res) => {
   if (req.query[ 'hub.verify_token' ] === process.env.VERIFICATION_TOKEN) {
     console.log('Verified webhook');
     res.status(200).send(req.query[ 'hub.challenge' ]);
@@ -18,24 +17,21 @@ router.get('',(req, res) => {
 
 router.post('', function (req, res) {
   console.log(req.body);
-  if (req.body.object == "page") {
-    console.log(req.body.entry)
+  if (req.body.object == 'page') {
+    console.log(req.body.entry);
     count++;
     console.log('APPEL NB : ' + count);
-    req.body.entry[0].messaging.forEach(function(event) {
-      console.log(event)
+    req.body.entry[ 0 ].messaging.forEach(function (event) {
+      if (event != null) {
         if (event.postback) {
-          console.log(event);
+          console.log('postback : ' + event);
           utils.processPostback(event);
         }
         else if (event.message) {
-        console.log(event)
+          console.log('message : ' + event);
         }
-        // if (event.message) {
-        //   console.log(event)
-        //   utils.processMessage(event)
-        // }
-      });
+      }
+    });
     res.sendStatus(200);
   }
 });
