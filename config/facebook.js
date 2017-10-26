@@ -17,18 +17,20 @@ router.get('',(req, res) => {
 });
 
 router.post('', function (req, res) {
-  if (req.body.object == "page") {
+  if (req.body.object === "page") {
     req.body.entry.forEach(function(entry) {
-      entry.messaging.forEach(function(event) {
-        if (event.postback) {
-          console.log(event);
-          utils.processPostback(event);
-        }
-        // if (event.message) {
-        //   console.log(event)
-        //   utils.processMessage(event)
-        // }
-      });
+      if (entry.messaging) {
+        entry.messaging.forEach(function(event) {
+          if (event.postback) {
+            console.log(event);
+            utils.processPostback(event);
+          }
+          if (event.message) {
+            console.log(event);
+            //utils.processMessage(event);
+          }
+        });
+      }
     });
     res.sendStatus(200);
   }
