@@ -37,7 +37,8 @@ const processMessage = (event) => {
   // prevent for echoes messages
   if (!event.message.is_echo) {
     let senderId = event.sender.id;
-    let payload = event.postback.payload;
+    let message = event.message;
+
   }
   //TODO : HANDLE PARSING USERS SENTENCES
 
