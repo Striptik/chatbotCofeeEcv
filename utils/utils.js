@@ -1,36 +1,45 @@
 let messagesManager = require('../messages/manager'),
-  request = require('request');
+  postbackDico = require('../messages/postbackDico'),
+  manager = require('../messages/manager'),
+  request = require('request'),
+  controller = require('../users/controller'),
+  _ = require('lodash');
 
-const processPostback = (event) => {
+const processPostback = (event, response) => {
   let senderId = event.sender.id;
   let payload = event.postback.payload;
 
+  for (let key in postbackDico) {
+    if (_.includes(key, payload)) {
+      managefunction(postbackDico[key], senderId, response);
+    }
+  }
+};
 
-  // TODO: Rendre générique
-  if (payload === "GET_STARTED_PAYLOAD") {
-    // Get user's first name from the User Profile API
-    // and include it in the greeting
-    request({
-      url: "https://graph.facebook.com/v2.6/" + senderId,
-      qs: {
-        access_token: process.env.PAGE_ACCESS_TOKEN,
-        fields: "first_name, last_name"
-      },
-      method: "GET"
-    }, function(error, response, body) {
-      let greeting = "";
+const managefunction = (postbackObject, fbUserId, response) => {
+
+  if (postbackObject.type == 'starter') {
+
+    controller.createUser(fbUserId, (error, newUser) => {
       if (error) {
-        console.log("Error getting user's name: " +  error);
-      } else {
-        let bodyObj = JSON.parse(body);
-        name = bodyObj.first_name;
-        last_name = bodyObj.last_name;
-        greeting = "Hi " + name + " " + last_name + ". ";
+        response.sendStatus(200);
+        manager.sendMessage(fbUserId, 'Désolé, il y a une erreur avec ton profil. \nÇa me dépasse.');
       }
-      let message = greeting + "My name is SP Movie Bot. I can tell you various details regarding movies. What movie would you like to know about?";
-      messagesManager.sendMessage(senderId, {text: message});
+      // TODO : check data equal to new user
+      postbackObject.postbackFunction(newUser);
     });
   }
+
+  if(postbackObject.type.includes("presentation")) {
+    controller.searchUser(fbUserId, (error, user) => {
+      if (error || !user) {
+        response.sendStatus(200);
+        manager.sendMessage(fbUserId, 'Désolé, je n\'aime pas trop ta présentation. \nÇa me dépasse.');
+      }
+      postbackObject.postbackFunction(newUser)
+    })
+  }
+
 };
 
 const processMessage = (event) => {

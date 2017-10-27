@@ -32,7 +32,7 @@ router.post('', function (req, res) {
           // BUTTON, LIST, POSTBACK MESSAGE
           if (event.postback) {
             console.log(event);//XXX: REMOVE
-            utils.processPostback(event);
+            utils.processPostback(event, res);
           }
   
           // REAL MESSAGE FROM USER
