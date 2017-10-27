@@ -7,21 +7,22 @@ let messagesManager = require('../messages/manager'),
   controller = require('../users/controller'),
   _ = require('lodash');
 
+// Handle postback
 const processPostback = (event, response) => {
   let senderId = event.sender.id;
   let payload = event.postback.payload;
-
+  
   for (let key in postbackDico) {
     if (_.includes(key, payload)) {
-      managefunction(postbackDico[key], senderId, response);
+      managefunction(postbackDico[ key ], senderId, response);
     }
   }
 };
 
 const managefunction = (postbackObject, fbUserId, response) => {
-
+  
   if (postbackObject.type == 'starter') {
-
+    
     controller.createUser(fbUserId, (error, newUser) => {
       if (error) {
         response.sendStatus(200);
@@ -31,29 +32,30 @@ const managefunction = (postbackObject, fbUserId, response) => {
       postbackObject.postbackFunction(newUser);
     });
   }
-
-  if(postbackObject.type.includes("presentation")) {
+  
+  if (postbackObject.type.includes('presentation')) {
     controller.searchUser(fbUserId, (error, user) => {
       if (error || !user) {
         response.sendStatus(200);
         manager.sendMessage(fbUserId, 'Désolé, je n\'aime pas trop ta présentation. \nÇa me dépasse.');
       }
-      postbackObject.postbackFunction(user)
-    })
+      postbackObject.postbackFunction(user);
+    });
   }
-
+  
 };
 
+// Handle message
 const processMessage = (event) => {
   // prevent for echoes messages
   if (!event.message.is_echo) {
     let senderId = event.sender.id;
     let message = event.message;
-
+    
     //XXX: REMOVE
     console.log('>>>>   Message receive from : ' + senderId);
     console.log('>>>>   TEXT :  ' + JSON.stringify(message));
-
+    
     // Text send by user
     if (message.text) {
       let formattedMsg = message.text.toLowerCase().trim();
@@ -66,12 +68,11 @@ const processMessage = (event) => {
     }
     // Attachement send by user
     else if (message.attachments) {
-     //utils.sendMessageText(senderId, '[CATHERINE] : Ha désolé, mais nous ne gérons pas encore les pièces jointes');
+      //utils.sendMessageText(senderId, '[CATHERINE] : Ha désolé, mais nous ne gérons pas encore les pièces jointes');
     }
-
+    
   }
-
-
+  
 };
 
 const processConversation = (fbUserId, message, cb) => {
@@ -82,57 +83,57 @@ const processConversation = (fbUserId, message, cb) => {
       console.log('Error or user not found ', { error, user });
       return cb(error);
     }
-
+    
     // Process in progress
     if (user.step !== -1) {
       // TODO : Make function to continue the process
       // TODO : "VOUS N'AVEZ PAS FINI DE REPONDRE A NOS QUESTIONS ?"
       // TODO : -> envoyer les questions de l'etape qui suit
     }
-
+    
     // No process in progress
     else {
       parseMessage(user, message);
-      cb(undefined, 'SUCCESS')
+      cb(undefined, 'SUCCESS');
     }
-
+    
   });
 };
 
 let parseMessage = (user, message) => {
-
+  
   // Search for words in dictionary
   let score = 0;
   let find = [];
-
+  
   for (let key in wordsDico) {
     if (_.includes(message, key)) {
       console.log('FIND WORD : ' + key); //XXX: REMOVE
       score++;
-      find.push(wordsDico[key])
+      find.push(wordsDico[ key ]);
     }
   }
-
+  
   // If no words find in dictionnary
   if (!score || !find.length) {
     // MESSAGE ERROR
-    manager.sendMessage(user.userIdFb, "What else ??? Ce sera tout ?\n Cella là, il va falloir me la refaire.\n\n" +
-      " Sinon tu peux choisir dans la liste pour faire plus simple");
+    manager.sendMessage(user.userIdFb, 'What else ??? Ce sera tout ?\n Cella là, il va falloir me la refaire.\n\n' +
+      ' Sinon tu peux choisir dans la liste pour faire plus simple');
     // TODO: Envoie liste de process (orderCaffe, ...)
   }
-
+  
   // Multiple words find in the user message
   else if (score > 1) {
-
+  
   }
-
+  
   else {
-
+  
   }
 };
 
-
 module.exports = {
+  managefunction,
   processPostback,
   processMessage,
   processConversation,

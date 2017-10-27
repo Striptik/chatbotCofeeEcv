@@ -5,7 +5,6 @@ let dico = {
     returnMessage: 'Hello, comment vas-tu ?',
     returnFunction: null,
     
-    
   },
   cafe : {
   

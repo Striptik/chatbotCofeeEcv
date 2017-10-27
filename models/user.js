@@ -19,6 +19,7 @@ var UserSchema = new Schema({
   step: {type: Number, default: 0},
   created: {type: Date},
   updated: {type: Date, default: Date.now},
+  // ADD HISTORY []
 });
 
 module.exports = mongoose.model("User", UserSchema);
