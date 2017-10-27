@@ -1,4 +1,4 @@
-const postbackFunction = require('./postackFunctions');
+const postbackFunction = require('./postbackFunctions');
 
 let dico = {
   // Beginig process
@@ -37,8 +37,55 @@ let dico = {
     step: 2,
     promo: 'M2'
   },
-  
-  
+  SPE_UX: {
+    type: 'presentation_spec',
+    postbackFunction: postbackFunction.initStep3,
+    step: 3,
+    promo: 'UX'
+  },
+  SPE_DEV: {
+    type: 'presentation_spec',
+    postbackFunction: postbackFunction.initStep3,
+    step: 3,
+    spec: 'Dev'
+  },
+  SPE_DES: {
+    type: 'presentation_spec',
+    postbackFunction: postbackFunction.initStep3,
+    step: 3,
+    spec: 'Design'
+  },
+  SPE_MARK: {
+    type: 'presentation_spec',
+    postbackFunction: postbackFunction.initStep3,
+    step: 3,
+    spec: 'Marketing'
+  },
+  FAV_DRINK_COFFEE: {
+    type: 'presentation_fav_drink',
+    drink: "Café",
+    postbackFunction: postbackFunction.initStep4,
+  },
+  FAV_DRINK_CAPU: {
+    type: 'presentation_fav_drink',
+    drink: "Cappucino",
+    postbackFunction: postbackFunction.initStep4,
+  },
+  FAV_DRINK_MOCHA: {
+    type: 'presentation_fav_drink',
+    drink: "Mocha",
+    postbackFunction: postbackFunction.initStep4,
+  },
+  FAV_DRINK_THE: {
+    type: 'presentation_fav_drink',
+    drink: "Thé",
+    postbackFunction: postbackFunction.initStep4,
+  },
+  FAV_DRINK_RIEN: {
+    type: 'presentation_fav_drink',
+    drink: null,
+    postbackFunction: postbackFunction.initStep4,
+  },
   //TODO: Add others postback
 };
 

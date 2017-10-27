@@ -1,11 +1,12 @@
-let messagesManager = require('../messages/manager'),
-  request = require('request'),
-  postbackDico = require('../messages/postbackDico'),
+let request = require('request'),
+  _ = require('lodash');
+
+let postbackDico = require('../messages/postbackDico'),
   userController = require('../users/controller'),
   wordsDico = require('../messages/findingWordsDico'),
   manager = require('../messages/manager'),
-  controller = require('../users/controller'),
-  _ = require('lodash');
+  controller = require('../users/controller');
+
 
 // Handle postback
 const processPostback = (event, response) => {
@@ -14,15 +15,16 @@ const processPostback = (event, response) => {
   
   for (let key in postbackDico) {
     if (_.includes(key, payload)) {
-      managefunction(postbackDico[ key ], senderId, response);
+      manageFunction(postbackDico[ key ], senderId, response);
     }
   }
 };
 
-const managefunction = (postbackObject, fbUserId, response) => {
+const manageFunction = (postbackObject, fbUserId, response) => {
   
+  // BUTTON START
   if (postbackObject.type == 'starter') {
-    
+    console.log('FIRST !');
     controller.createUser(fbUserId, (error, newUser) => {
       if (error) {
         response.sendStatus(200);
@@ -33,19 +35,59 @@ const managefunction = (postbackObject, fbUserId, response) => {
     });
   }
   
-  if (postbackObject.type.includes('presentation')) {
-    controller.searchUser(fbUserId, (error, user) => {
-      if (error || !user) {
-        response.sendStatus(200);
-        manager.sendMessage(fbUserId, 'Désolé, je n\'aime pas trop ta présentation. \nÇa me dépasse.');
-      }
-      postbackObject.postbackFunction(user);
-    });
+  // PROCCESS PRESENTATION
+  if (postbackObject.type.includes('presentation_')) {
+    
+    // HANDLE PRESENTATION PROMO
+    if (postbackObject.type.includes('presentation_promo')) {
+      controller.searchUser(fbUserId, (error, user) => {
+        if (error || !user) {
+          response.sendStatus(200);
+          manager.sendMessage(fbUserId, 'Désolé, je ne comprend pas trop ta présentation. \nÇa me dépasse.');
+        }
+        // update user
+        user.promo = postbackObject.promo;
+        user.step = user.promo.includes('B') ? 3 : 2;
+        user.save((err, data) => {
+          if (err) {
+            response.sendStatus(200);
+            console.log('save error : presentation', err);
+            manager.sendMessage(fbUserId, 'Désolé, Impossible de sauvaegarder. \nÇa me dépasse.');
+          }
+          console.log('customer save promo : ' + data);
+          postbackObject.postbackFunction(user);
+        });
+      });
+    }
+    
+    // Handle presentation specialite
+    if (postbackObject.type.includes('presentation_spec')) {
+      controller.searchUser(fbUserId, (error, user) => {
+        if (error || !user) {
+          response.sendStatus(200);
+          manager.sendMessage(fbUserId, 'Oups, pas compris. \nÇa me dépasse.');
+        }
+        //update user
+        user.option = postbackObject.spec;
+        user.step = 3;
+        user.save((err, data) => {
+          if (err) {
+            response.sendStatus(200);
+            console.log('save error : promo', err);
+            manager.sendMessage(fbUserId, 'Désolé, Impossible de sauvaegarder ta promo. \nMes devs sont nuls.');
+          }
+          console.log('customer save spec : ' + data);
+          postbackObject.postbackFunction(user);
+        });
+      });
+    }
   }
   
 };
 
-// Handle message
+// MESSAGE HANDLER FUNCTIONS
+
+// Get the message from payload
 const processMessage = (event) => {
   // prevent for echoes messages
   if (!event.message.is_echo) {
@@ -62,7 +104,7 @@ const processMessage = (event) => {
       processConversation(senderId, formattedMsg, (err) => {
         if (err) {
           // TODO: Message erreur a l'utilisateur
-          //sendMessage()
+          manager.sendMessage(senderId, 'Un petit soucis, je suis confus');
         }
       });
     }
@@ -75,6 +117,7 @@ const processMessage = (event) => {
   
 };
 
+// Check if a proccess is in progress, if not send the message to parse Message
 const processConversation = (fbUserId, message, cb) => {
   // Retrieve User in Db with facebook user id
   userController.searchUser(fbUserId, (error, user) => {
@@ -85,11 +128,12 @@ const processConversation = (fbUserId, message, cb) => {
     }
     
     // Process in progress
-    if (user.step !== -1) {
-      // TODO : Make function to continue the process
-      // TODO : "VOUS N'AVEZ PAS FINI DE REPONDRE A NOS QUESTIONS ?"
-      // TODO : -> envoyer les questions de l'etape qui suit
-    }
+    // if (user.step !== -1) {
+    //   // TODO : Make function to continue the process
+    //   // TODO : "VOUS N'AVEZ PAS FINI DE REPONDRE A NOS QUESTIONS ?"
+    //   // TODO : -> envoyer les questions de l'etape qui suit
+    // }
+    //
     
     // No process in progress
     else {
@@ -100,6 +144,7 @@ const processConversation = (fbUserId, message, cb) => {
   });
 };
 
+// Check the words
 let parseMessage = (user, message) => {
   
   // Search for words in dictionary
@@ -118,17 +163,19 @@ let parseMessage = (user, message) => {
   if (!score || !find.length) {
     // MESSAGE ERROR
     manager.sendMessage(user.userIdFb, 'What else ??? Ce sera tout ?\n Cella là, il va falloir me la refaire.\n\n' +
-      ' Sinon tu peux choisir dans la liste pour faire plus simple');
+      'Sinon tu peux choisir dans la liste pour faire plus simple');
     // TODO: Envoie liste de process (orderCaffe, ...)
   }
   
   // Multiple words find in the user message
   else if (score > 1) {
-  
+    manager.sendMessage(user.userIdFb, 'Beaucoup trop d\'informations pour mon niveau de dévellopement, mais' +
+      ' peut-être bientôt ...');
   }
   
+  // One result
   else {
-  
+    manager.sendMessage(user.userIdFb, 'Yes j\'ai trouvé !');
   }
 };
 
@@ -136,6 +183,7 @@ module.exports = {
   managefunction,
   processPostback,
   processMessage,
+  parseMessage,
   processConversation,
   parseConversation,
 };

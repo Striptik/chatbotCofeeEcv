@@ -6,11 +6,6 @@ let dico = {
     returnFunction: null,
     
   },
-  cafe : {
-  
-  },
-  // .....
-  //TODO: Add others messages
 };
 
 module.exports = dico;
