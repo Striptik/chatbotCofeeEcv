@@ -180,7 +180,7 @@ let parseMessage = (user, message) => {
 };
 
 module.exports = {
-  managefunction,
+  manageFunction,
   processPostback,
   processMessage,
   parseMessage,
