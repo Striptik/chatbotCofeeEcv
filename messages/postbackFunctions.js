@@ -15,27 +15,27 @@ const initStep1 = (user) => {
   let question = `Est ce que tu peux me donner ta promo ? `;
   let buttons = [
     {
-      "content-type": "text",
+      "content_type": "text",
       "title": "B1",
       "payload": "PROMO_B1",
     },
     {
-      "content-type": "text",
+      "content_type": "text",
       "title": "B2",
       "payload": "PROMO_B2",
     },
     {
-      "content-type": "text",
+      "content_type": "text",
       "title": "B3",
       "payload": "PROMO_B3",
     },
     {
-      "content-type": "text",
+      "content_type": "text",
       "title": "M1",
       "payload": "PROMO_M1",
     },
     {
-      "content-type": "text",
+      "content_type": "text",
       "title": "M2",
       "payload": "PROMO_M2",
     }
@@ -66,22 +66,22 @@ const initStep2m = (user) => {
   let question = `Et en quel mastère du coup ? `;
   let buttons = [
     {
-      "content-type": "text",
+      "content_type": "text",
       "title": "UX",
       "payload": "SPE_UX",
     },
     {
-      "content-type": "text",
+      "content_type": "text",
       "title": "DEV",
       "payload": "SPE_DEV",
     },
     {
-      "content-type": "text",
+      "content_type": "text",
       "title": "Market",
       "payload": "SPE_MARK",
     },
     {
-      "content-type": "text",
+      "content_type": "text",
       "title": "Web Dé",
       "payload": "PROMO_M1",
     }
@@ -106,27 +106,27 @@ const gotToStep4 = (user) => {
   let question = `Quelle est ta boisson préférée ?`;
   let buttons = [
     {
-      "content-type": "text",
+      "content_type": "text",
       "title": "Café",
       "payload": "FAV_DRINK_COFFEE",
     },
     {
-      "content-type": "text",
+      "content_type": "text",
       "title": "Cappucino",
       "payload": "FAV_DRINK_CAPU",
     },
     {
-      "content-type": "text",
+      "content_type": "text",
       "title": "Mocha",
       "payload": "FAV_DRINK_MOCHA",
     },
     {
-      "content-type": "text",
+      "content_type": "text",
       "title": "Thé",
       "payload": "FAV_DRINK_THE",
     },
     {
-      "content-type": "text",
+      "content_type": "text",
       "title": "RIEN !",
       "payload": "FAV_DRINK_RIEN",
     }
@@ -144,27 +144,27 @@ const initStep4 = (user) => {
   // let question = `Quelle est ta boisson préférée ?`;
   // let buttons = [
   //   {
-  //     "content-type": "text",
+  //     "content_type": "text",
   //     "title": "B1",
   //     "payload": "PROMO_B1",
   //   },
   //   {
-  //     "content-type": "text",
+  //     "content_type": "text",
   //     "title": "B2",
   //     "payload": "PROMO_B2",
   //   },
   //   {
-  //     "content-type": "text",
+  //     "content_type": "text",
   //     "title": "B3",
   //     "payload": "PROMO_B3",
   //   },
   //   {
-  //     "content-type": "text",
+  //     "content_type": "text",
   //     "title": "M1",
   //     "payload": "PROMO_M1",
   //   },
   //   {
-  //     "content-type": "text",
+  //     "content_type": "text",
   //     "title": "M2",
   //     "payload": "PROMO_M2",
   //   }
