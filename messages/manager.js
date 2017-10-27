@@ -1,5 +1,8 @@
 let request = require('request');
 
+
+
+
 // sends message to user
 function sendMessage(recipientId, message) {
   request({

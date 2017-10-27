@@ -1,9 +1,9 @@
-let findingWordsFunction = require('./')
+let findingWordsFunction = require('./findingWordsFunction');
 
 let dico = {
   bonjour: {
     returnMessage: 'Hello, comment vas-tu ?',
-    returnFunction:
+    returnFunction: null
   },
   
   //TODO: Add others messages
