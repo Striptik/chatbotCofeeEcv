@@ -33,12 +33,14 @@ router.post('', function (req, res) {
           if (event.postback) {
             console.log(event);//XXX: REMOVE
             utils.processPostback(event);
+            return res.sendStatus(200);
           }
   
           // REAL MESSAGE FROM USER
           if (event.message) {
             console.log(event);//XXX: REMOVE
             utils.processMessage(event);
+            return res.sendStatus(200);
           }
         });
       }

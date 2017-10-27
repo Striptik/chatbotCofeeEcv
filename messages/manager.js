@@ -23,3 +23,7 @@ function sendMessage(recipientId, message) {
     //TODO: Handle Success messages send
   });
 }
+
+module.exports = {
+  sendMessage
+};
