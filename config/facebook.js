@@ -38,7 +38,7 @@ router.post('', function (req, res) {
           // REAL MESSAGE FROM USER
           if (event.message) {
             console.log(event);//XXX: REMOVE
-            utils.processMessage(event);
+            utils.processMessage(event, res);
           }
         });
       }
