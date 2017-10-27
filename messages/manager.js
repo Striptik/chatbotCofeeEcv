@@ -14,8 +14,34 @@ const sendQuickReplies = (recipientId, title, buttons) => {
     recipient: {id: recipientId},
     message: {
       text: title,
-      quick_replies: buttons
-    },
+      quick_replies: [
+        {
+          "content-type": "text",
+          "title": "B1",
+          "payload": "PROMO_B1",
+        },
+        {
+          "content-type": "text",
+          "title": "B2",
+          "payload": "PROMO_B2",
+        },
+        {
+          "content-type": "text",
+          "title": "B3",
+          "payload": "PROMO_B3",
+        },
+        {
+          "content-type": "text",
+          "title": "M1",
+          "payload": "PROMO_M1",
+        },
+        {
+          "content-type": "text",
+          "title": "M2",
+          "payload": "PROMO_M2",
+        }
+      ]
+    }
   };
   console.log(json);
   sendRequest(json);
