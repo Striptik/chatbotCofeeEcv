@@ -48,6 +48,7 @@ const processMessage = (event) => {
     console.log('>>>>   Message receive from : ' + senderId);
     console.log('>>>>   TEXT :  ' + JSON.stringify(message));
   
+    // Text send by user
     if (message.text) {
       let formattedMsg = message.text.toLowerCase().trim();
       processConversation(senderId, formattedMsg, (err) => {
@@ -56,7 +57,9 @@ const processMessage = (event) => {
           //sendMessage()
         }
       });
-    } else if (message.attachments) {
+    }
+    // Attachement send by user
+    else if (message.attachments) {
      //utils.sendMessageText(senderId, '[CATHERINE] : Ha désolé, mais nous ne gérons pas encore les pièces jointes');
     }
     
@@ -107,9 +110,9 @@ let parseMessage = (user, message) => {
   // If no words find in dictionnary
   if (!score || !find.length) {
     // MESSAGE ERROR
-    manager.sendMessage(user.userIdFb, "Oups, cella là, il va falloir me la refaire. Clique sur une dés réponses");
+    manager.sendMessage(user.userIdFb, "What else ??? Ce sera tout ?\n Cella là, il va falloir me la refaire.\n\n" +
+      " Sinon tu peux choisir dans la liste pour faire plus simple");
     // TODO: Envoie liste de process (orderCaffe, ...)
-    
   }
   
   // Multiple words find in the user message
