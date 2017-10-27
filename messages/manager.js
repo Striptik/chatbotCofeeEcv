@@ -17,6 +17,7 @@ const sendQuickReplies = (recipientId, title, buttons) => {
       quick_replies: buttons
     },
   };
+  console.log(json);
   sendRequest(json);
 };
 
