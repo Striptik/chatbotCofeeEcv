@@ -13,7 +13,7 @@ const searchUser = (fbId, callback) => {
       console.log('No user found');
       return callback(null);
     }
-    return callback(user);
+    return callback(null, user);
   })
 };
 
