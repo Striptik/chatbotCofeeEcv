@@ -5,10 +5,9 @@ const initStep1 = (user) => {
   
   console.log('init Step 1\n USER : ', user);
   // Send presentation message
-  let presentationMessage = `Salut ${user.firstname}
-  Moi c'est Georges ton nouveau meilleur ami.
-  Si tu as besoin d'une boisson tu es bien tombé mais je fais aussi plein d'autres choses.
-  Mais on aura le temps de voir ça ensemble plus tard. Et si on faisait connaissance ?`;
+  let presentationMessage = 'Salut' + user.firstname + '\nMoi c\'est Georges ton nouveau meilleur ami.\nSi tu as' +
+    ' besoin d\'une boisson tu es bien tombé mais je fais aussi plein d\'autres choses.\nMais on aura le temps de' +
+    ' voir ça ensemble plus tard.\nEt si on faisait connaissance ?';
 
   manager.sendMessage(user.userIdFb, presentationMessage);
 
