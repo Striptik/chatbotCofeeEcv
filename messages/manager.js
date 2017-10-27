@@ -30,7 +30,8 @@ const sendRequest = (json) => {
     if (error) {
       console.log("Error sending message: " + response.error);
     }
-    console.log("Message sent : " + body);
+    console.log("Message sent : ");
+    console.log(body);
   });
 };
 
