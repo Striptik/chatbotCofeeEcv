@@ -40,6 +40,15 @@ const processMessage = (event) => {
   }
   //TODO : HANDLE PARSING USERS SENTENCES
   
+  console.log('Message receive from ')
+  
+  if (message.text) {
+    let formattedMsg = message.text.toLowerCase().trim();
+    parseConversation(senderId, formattedMsg)
+  } else if (message.attachments) {
+    utils.sendMessageText(senderId, "[CATHERINE] : Ha désolé, mais nous ne gérons pas encore les pièces jointes");
+  }
+  
 };
 
 module.exports = {
