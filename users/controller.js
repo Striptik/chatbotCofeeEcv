@@ -1,19 +1,20 @@
 let usersModel = require('../models/user');
 
-const searchUser = (fbId) => {
-  usersModel.find({userIdFb: fbId}, (err, user) => {
+const searchUser = (fbIdn, callback) => {
+  usersModel.findOne({userIdFb: fbId}, (err, user) => {
     if(err) {
       // Todo : améliorer les checks
       console.log('error : ' + err);
-      return err;
+      return callback(err);
     } else if(!user) {
       console.log('No user found');
-      return null;
+      return callback(null);
     }
-    return user;
+    return callback(user);
   })
-
 };
+
+//sendMessage(userId, {text: movie[field]});
 
 const createhUser = (userData) => {
   let newUser = new usersModel;

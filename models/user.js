@@ -16,6 +16,7 @@ var UserSchema = new Schema({
   wantedContent: {type: Boolean, default: true},
   favoriteContent: {type: String, default: null},
   schoolDays: [Number],
+  step: {type: Number, default: 0},
   created: {type: Date},
   updated: {type: Date, default: Date.now},
 });
