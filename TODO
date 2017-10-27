@@ -1,13 +1,27 @@
-// HANDLE POST BACK
-  // Function
-
-// FAIRE LISTE DES PROCESS -> Ale
+// ERRORS
+  quick replies interprétés comme messages
 
 
+
+
+// EVENT
+  Gérer si des événements sont en cours
 
 
 // message
-
+  Ajouter le dictionnaire
+  ajouter les fonctions liés au dictionnaire
+  MUTLTIPLES WORDS -> générer la liste des différents process
+  NO WORDS -> générer la liste des process
 
 // postback
-  // liste des  process
+    finir le process d'inscription (boisson favorite, jours de semaines ..)
+    faire le processe de commandes de café
+    process de news
+    process de blagues
+    météo
+
+  // + LOIN :
+  Historique
+  PAIEMENT
+
