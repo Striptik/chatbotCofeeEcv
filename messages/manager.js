@@ -4,7 +4,7 @@ let request = require('request');
 function sendMessage(recipientId, message) {
   const json = {
     recipient: {id: recipientId},
-    message: message,
+    message: {text: message},
   };
   sendRequest(json);
 }
