@@ -184,7 +184,6 @@ module.exports = {
   processPostback,
   processMessage,
   parseMessage,
-  processConversation,
-  parseConversation,
+  processConversation
 };
 
